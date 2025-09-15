@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PulsePoint</title>
+  <link href="https://fonts.cdnfonts.com/css/audrey" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <h1 class="main-heading">PulsePoint</h1>
+      <p class="caption-heading">An anonymous and secure IIITD Campus Grievance Portal</p>
+    </header>
+
+    <!-- Login Page -->
+    <div id="login-page" class="card">
+      <div class="form-group">
+        <label for="username">Name</label>
+        <input type="text" id="username" placeholder="Enter username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter password" required>
+      </div>
+      <p id="login-error" class="error hidden">Invalid enrollment number or password.</p>
+      <button class="btn-primary mb-4" onclick="handleLogin()">Login</button>
+      <button class="btn-secondary mb-4" onclick="navigateTo('registration-form')">Register</button>
+      <button class="btn-link mb-4" onclick="alert('Reset password functionality not implemented')">Forgot Password?</button>
+      <button class="btn-link mt-4" onclick="navigateTo('anonymous-grievance-form')">Submit Anonymously</button>
+    </div>
+
+    <!-- Registration Form -->
+    <div id="registration-form" class="card hidden">
+      <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Student Registration</h1>
+      <p class="text-center text-gray-600 mb-4">Create your account to access the grievance portal</p>
+      <div class="form-group">
+        <label for="full-name">Full Name*</label>
+        <input type="text" id="full-name" placeholder="Enter full name" required>
+      </div>
+      <div class="form-group">
+        <label for="enrollment">Enrollment Number*</label>
+        <input type="text" id="enrollment" placeholder="Enter Enrollment Number" required>
+      </div>
+      <div class="form-group">
+        <label for="department">Department*</label>
+        <select id="department" required>
+          <option value="" disabled selected>Select Department</option>
+          <option value="computer-science-engineering">Computer Science and Engineering</option>
+          <option value="computer-science-engineering">Information Technology</option>
+          <option value="electronics-communication-engineering">Electronics & Communication Engineering</option>
+          <option value="computational-biology">Computational Biology</option>
+          <option value="human-centered-design">Human Centered Design</option>
+          <option value="mathematics">Mathematics</option>
+          <option value="social-sciences-humanities">Social Sciences and Humanities</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="year">Year*</label>
+        <select id="year" required>
+          <option value="" disabled selected>Select Year</option>
+          <option value="1">1st Year</option>
+          <option value="2">2nd Year</option>
+          <option value="3">3rd Year</option>
+          <option value="4">4th Year</option>
+          <option value="5">5th Year</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="institute">Institute*</label>
+        <input type="text" id="institute" placeholder="Enter Institute name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Institute Email Address*</label>
+        <input type="email" id="email" placeholder="Enter Institute email" required>
+      </div>
+      <div class="form-group">
+        <label for="reg-password">Password*</label>
+        <input type="password" id="reg-password" placeholder="Enter password" required>
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password*</label>
+        <input type="password" id="confirm-password" placeholder="Enter a confirm password" required>
+      </div>
+      <p id="reg-error" class="error hidden">Please fill all required fields.</p>
+      <button class="btn-primary mb-4" onclick="submitRegistration()">Register</button>
+      <button class="btn-secondary" onclick="navigateTo('login-page')">Login</button>
+    </div>
+
+    <!-- Regular Grievance Submission Form -->
+    <div id="grievance-form" class="card hidden">
+      <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Submit New Grievance</h1>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" required>
+          <option value="" disabled selected>Select category</option>
+          <option value="academic">Academic</option>
+          <option value="admin">Administrative</option>
+          <option value="admin">Mental health/Well-being</option>
+          <option value="admin">Infrastructure/Facility Related</option>
+          <option value="harassment">Harassment</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" placeholder="Describe your grievance" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="file-upload">Attach File</label>
+        <input type="file" id="file-upload">
+      </div>
+      <div class="form-group">
+        <label for="priority">Priority Level</label>
+        <select id="priority" required>
+          <option value="" disabled selected>Select priority</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      <div class="form-group"><center>
+        <label>
+          <input type="checkbox" id="anonymous"> Submit Anonymously
+        </label></center>
+      </div>
+      <button class="btn-primary mb-4" onclick="submitGrievance()">Submit</button>
+      <button class="btn-secondary" onclick="navigateTo('dashboard')">Cancel</button>
+      <p id="form-error" class="error hidden">Please fill all required fields.</p>
+    </div>
+
+    <!-- Anonymous Grievance Submission Form -->
+    <div id="anonymous-grievance-form" class="card hidden">
+      <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Submit New Grievance</h1>
+      <div class="form-group">
+        <label for="anon-category">Category</label>
+        <select id="anon-category" required>
+          <option value="" disabled selected>Select category</option>
+          <option value="academic">Academic</option>
+          <option value="admin">Administrative</option>
+          <option value="admin">Mental health/Well-being</option>
+          <option value="admin">Infrastructure/Facility Related</option>
+          <option value="harassment">Harassment</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="anon-description">Description</label>
+        <textarea id="anon-description" placeholder="Describe your grievance" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="anon-file-upload">Attach File</label>
+        <input type="file" id="anon-file-upload">
+      </div>
+      <div class="form-group">
+        <label for="anon-priority">Priority Level</label>
+        <select id="anon-priority" required>
+          <option value="" disabled selected>Select priority</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      <div class="form-group"><center>
+        <label>
+          <input type="checkbox" id="anon-anonymous" checked disabled> Submit Anonymously
+        </label></center>
+      </div>
+      <button class="btn-primary mb-4" onclick="submitAnonymousGrievance()">Submit</button>
+      <button class="btn-secondary" onclick="navigateTo('login-page')">Cancel</button>
+      <p id="anon-form-error" class="error hidden">Please fill all required fields.</p>
+    </div>
+
+    <!-- User Dashboard -->
+    <div id="dashboard" class="card hidden">
+      <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">My Grievances</h1>
+      <table class="grievance-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Anonymous</th>
+            <th>Priority</th>
+          </tr>
+        </thead>
+        <tbody id="grievance-table-body"></tbody>
+      </table>
+      <button class="btn-primary mt-4" onclick="navigateTo('grievance-form')">New Grievance</button>
+      <button class="btn-secondary mt-4" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- Link to external JS -->
+  <script src="script.js"></script>
+</body>
+</html>
